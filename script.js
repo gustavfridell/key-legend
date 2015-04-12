@@ -11,6 +11,7 @@ var initialTime;
 var currentTime;
 var timeLeft;
 var alert = null;
+var alertTimeout;
 var gameOptions = {
     horizontalTiles: 5,
     verticalTiles: 5,
@@ -39,8 +40,9 @@ var newTileRow = function () {
 };
 
 var addAlert = function (message, ttl) {
+    clearTimeout(alertTimeout);
     alert = message;
-    setTimeout(function() {
+    alertTimeout = setTimeout(function() {
         alert = null;
     }, ttl * 1000);
 };
@@ -183,6 +185,8 @@ var touchStart = function (e) {
                 break;
             }
         };
+    } else {
+        addAlert('Miss!', 2);
     }
 };
 
