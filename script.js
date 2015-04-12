@@ -72,7 +72,10 @@ var renderScore = function () {
     ctx.font = '50px Helvetica';
     ctx.textAlign = 'left';
     ctx.textBaseline = 'top';
-    ctx.fillText(score, 10, 10);
+    ctx.fillText(score, 10, 15);
+
+    ctx.font = '14px Helvetica';
+    ctx.fillText('Score:', 10, 5);
 };
 
 var renderHighScore = function () {
@@ -110,7 +113,10 @@ var renderTime = function () {
     ctx.font = '50px Helvetica';
     ctx.textAlign = 'left';
     ctx.textBaseline = 'top';
-    ctx.fillText(timeLeft, canvas.width - 65, 10);
+    ctx.fillText(timeLeft, canvas.width - 65, 15);
+
+    ctx.font = '14px Helvetica';
+    ctx.fillText('Time left:', canvas.width - 65, 5);
 };
 
 var renderAlert = function () {
