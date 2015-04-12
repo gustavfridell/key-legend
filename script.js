@@ -159,6 +159,12 @@ var init = function () {
 };
 init();
 
+var resetGame = function () {
+    addAlert('Miss!', 2);
+    initialTime = false;
+    score = 0;
+}
+
 var touchStart = function (e) {
     e.preventDefault();
     var x = e.targetTouches[0].pageX;
@@ -178,15 +184,13 @@ var touchStart = function (e) {
                     tiles.pop();
                     tiles.unshift(newTileRow());
                 } else {
-                    addAlert('Miss!', 2);
-                    initialTime = false;
-                    score = 0;
+                    resetGame();
                 }
                 break;
             }
         };
     } else {
-        addAlert('Miss!', 2);
+        resetGame();
     }
 };
 
