@@ -6,6 +6,7 @@ canvas.height = window.innerHeight;
 var tiles = [];
 var score = 0;
 var highScore = localStorage.highScore || 0;
+var latestScore = 0;
 var initialTime;
 var currentTime;
 var timeLeft;
@@ -82,6 +83,14 @@ var renderHighScore = function () {
     ctx.fillText('High score: ' + highScore, (canvas.width / 2) - 110, 5);
 };
 
+var renderlatestScore = function () {
+    ctx.fillStyle = 'white';
+    ctx.font = '25px Helvetica';
+    ctx.textAlign = 'left';
+    ctx.textBaseline = 'top';
+    ctx.fillText('Latest score: ' + latestScore, (canvas.width / 2) - 110, 35);
+};
+
 var renderTime = function () {
     if(initialTime) {
         timeLeft = Math.ceil(gameOptions.time - ((currentTime - initialTime) / 1000));
@@ -90,6 +99,7 @@ var renderTime = function () {
     }
     if(timeLeft === 0) {
         initialTime = false;
+        latestScore = score;
         if(score > highScore) {
             highScore = score;
             localStorage.setItem('highScore', score);
@@ -121,6 +131,7 @@ var render = function () {
     renderTopBar();
     renderScore();
     renderHighScore();
+    renderlatestScore();
     renderAlert();
     renderTime();
 };
