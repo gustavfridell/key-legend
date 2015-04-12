@@ -18,6 +18,7 @@ var gameOptions = {
     time: 10
 };
 var tileBorderWidth = 3;
+var tileDotSize = 20;
 var tileColors = [];
 var touchTop = canvas.height - (canvas.height / gameOptions.horizontalTiles);
 
@@ -59,6 +60,11 @@ var renderTiles = function () {
                 ctx.fillRect(x, y, tileWidth, tileHieght);
                 ctx.fillStyle = tileColors[ht];
                 ctx.fillRect(x + tileBorderWidth, y + tileBorderWidth, tileWidth - (2 * tileBorderWidth), tileHieght - (2 * tileBorderWidth));
+
+                if (JSON.parse(vt) === gameOptions.verticalTiles - 1) {
+                    ctx.fillStyle = 'black';
+                    ctx.fillRect(x + (tileWidth / 2) - (tileDotSize / 2), y + (tileHieght / 2) - (tileDotSize / 2), tileDotSize, tileDotSize);
+                }
             }
         }
     }
