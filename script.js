@@ -17,6 +17,13 @@ var gameOptions = {
     verticalTiles: 5,
     time: 10
 };
+var keys = {
+    65: 0,
+    83: 1,
+    74: 2,
+    75: 3,
+    76: 4
+};
 var tileBorderWidth = 3;
 var tileDotSize = 20;
 var tileColors = [];
@@ -169,7 +176,25 @@ var resetGame = function () {
     addAlert('Miss!', 2);
     initialTime = false;
     score = 0;
-}
+};
+
+var clickTile = function (tile) {
+    for(var t in tiles[tiles.length - 1]) {
+        if(tiles[tiles.length - 1][t]) {
+            if(JSON.parse(t) === tile) {
+                if(score === 0) {
+                    initialTime = Date.now();
+                }
+                score++;
+                tiles.pop();
+                tiles.unshift(newTileRow());
+            } else {
+                resetGame();
+            }
+            break;
+        }
+    }
+};
 
 var touchStart = function (e) {
     e.preventDefault();
@@ -179,25 +204,19 @@ var touchStart = function (e) {
     if (y >= touchTop && y <= canvas.height) {
         var tileWidth = canvas.width / gameOptions.horizontalTiles;
         var tile = Math.floor(x / tileWidth);
-
-        for(var t in tiles[tiles.length - 1]) {
-            if(tiles[tiles.length - 1][t]) {
-                if(JSON.parse(t) === tile) {
-                    if(score === 0) {
-                        initialTime = Date.now();
-                    }
-                    score++;
-                    tiles.pop();
-                    tiles.unshift(newTileRow());
-                } else {
-                    resetGame();
-                }
-                break;
-            }
-        };
+        clickTile(tile);
     } else {
         resetGame();
     }
 };
 
+var keyDown = function (e) {
+    var key = e.which || e.keyCode;
+
+    if (key in keys) {
+        clickTile(keys[key]);
+    }
+};
+
 addEventListener('touchstart', touchStart, false);
+addEventListener('keydown', keyDown, false);
